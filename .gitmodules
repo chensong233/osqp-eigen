@@ -1,0 +1,3 @@
+[submodule "thirdparty/osqp"]
+	path = thirdparty/osqp
+	url = git@github.com:chensong233/osqp.git
