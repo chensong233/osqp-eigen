@@ -17,6 +17,13 @@ set(OsqpEigen_VERSION "${OsqpEigen_MAJOR_VERSION}.${OsqpEigen_MINOR_VERSION}.${O
 # Set project version
 project(OsqpEigen VERSION ${OsqpEigen_VERSION})
 
+set(USED_AS_SUBMODULE TRUE)
+if(USED_AS_SUBMODULE)
+  add_subdirectory(thirdparty/osqp)
+  set(osqp_library_name osqplocal)
+else(USED_AS_SUBMODULE)
+  set(osqp_library_name osqp)
+endif(USED_AS_SUBMODULE)
 # ouptut paths
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
@@ -109,7 +116,7 @@ add_library(${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TAR
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp Eigen3::Eigen)
+target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp_library_name Eigen3::Eigen)
 
 add_library(OsqpEigen::OsqpEigen ALIAS OsqpEigen)
 

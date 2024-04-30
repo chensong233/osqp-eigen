@@ -10,7 +10,9 @@ include(OsqpEigenFindOptionalDependencies)
 #---------------------------------------------
 ## Required Dependencies
 find_package(Eigen3 3.2.92 REQUIRED)
-find_package(osqp REQUIRED)
+if(NOT USED_AS_SUBMODULE)
+  find_package(osqp REQUIRED)
+endif(NOT USED_AS_SUBMODULE)
 
 #---------------------------------------------
 ## Optional Dependencies
